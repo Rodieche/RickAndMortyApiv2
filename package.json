@@ -12,6 +12,7 @@
   "dependencies": {
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.3",
+    "hammerjs": "^2.0.8",
     "keep-react": "^1.1.0",
     "postcss": "^8.4.32",
     "prop-types": "^15.8.1",
