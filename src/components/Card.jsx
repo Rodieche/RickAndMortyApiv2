@@ -7,7 +7,7 @@ export const Card = ({ character }) => {
     <div className='card'>
       <div className="face font">
         <img src={ character.image } />
-        <h3 className='text-center'>{ character.name }</h3>
+        <h3 className='text-center font-bold m-2 text-white'>{ character.name }</h3>
       </div>
       <div className="face back">
         <h3>{ character.name }</h3>
