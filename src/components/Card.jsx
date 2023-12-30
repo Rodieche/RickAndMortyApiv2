@@ -4,38 +4,24 @@ import './card.css';
 
 export const Card = ({ character }) => {
   return (
-    <div className="card">
-        <h3>{ character.id }</h3>
-        <i className="fa-regular fa-heart"></i>
-        <div className="image">
+    <div className='card'>
+      <div className="face font">
         <img src={ character.image } />
-            <img src={ character.image } className="blur" />
-        </div>
-        <div className="text">
-            <h2>{ character.name }</h2>
-            <div className="p-4">
-        <div className="mb-4">
-          <p className="text-sm font-semibold">
-            <span className="text-gray-600">Status:</span> {character.status}
-          </p>
-        </div>
-        <div className="mb-4">
-          <p className="text-sm font-semibold">
-            <span className="text-gray-600">Species:</span> {character.species}
-          </p>
-        </div>
-        <div className="mb-4">
-          <p className="text-sm font-semibold">
-            <span className="text-gray-600">Location:</span> {character.location.name}
-          </p>
-        </div>
-        <div>
-          <p className="text-sm font-semibold">
-            <span className="text-gray-600">Origin:</span> {character.origin.name}
-          </p>
+        <h3 className='text-center'>{ character.name }</h3>
+      </div>
+      <div className="face back">
+        <h3>{ character.name }</h3>
+        <p>
+          <b>Specie: </b>{ character.species }
+          <br />
+          <b>Status: </b>{ character.status }
+          <br />
+          <b>Origin: </b>{ character.origin.name }
+        </p>
+        <div className="link">
+          <a href="#">Details</a>
         </div>
       </div>
-        </div>
     </div>
   )
 }

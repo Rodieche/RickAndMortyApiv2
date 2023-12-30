@@ -9,7 +9,7 @@ export const Characters = () => {
     useEffect(() => {
         async function fetchData(){
             try{
-                const {info, results} = await getData('character');
+                const { results } = await getData('character');
                 setCharacters(results);
             }catch(error){
                 console.log('Error fetching data:', error);
