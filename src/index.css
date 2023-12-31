@@ -1,4 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Scribble&display=swap');
 @import "keep-react/css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.topAdjust {
+    margin-top: -300px;
+}
+
+.rubik {
+    font-family: 'Rubik Scribble', 'sans';
+}

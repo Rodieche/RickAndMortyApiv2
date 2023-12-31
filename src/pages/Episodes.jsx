@@ -8,7 +8,7 @@ export const Episodes = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const { info, results } = await getData('episode');
+                const { results } = await getData('episode');
                 setEpisodes(results);
             } catch (error) {
                 console.error("Error fetching data:", error);

@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import './card.css';
 
-export const Card = ({ character }) => {
+export const Card = ({ character, onlyCard = false }) => {
   return (
     <div className='card'>
       <div className="face font">
@@ -19,7 +20,13 @@ export const Card = ({ character }) => {
           <b>Origin: </b>{ character.origin?.name }
         </p>
         <div className="link">
-          <a href="#">Details</a>
+          {
+            onlyCard? null : (
+                <Link to={`/characters/${character.id}`}>
+                  Details
+                </Link>
+            )
+          }
         </div>
       </div>
     </div>
@@ -27,5 +34,6 @@ export const Card = ({ character }) => {
 }
 
 Card.propTypes = {
-    character: PropTypes.object.isRequired
+    character: PropTypes.object.isRequired,
+    onlyCard: PropTypes.bool
 }
