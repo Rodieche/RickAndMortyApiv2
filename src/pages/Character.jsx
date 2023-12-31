@@ -39,7 +39,7 @@ export const Character = () => {
     <>
         <Typography variant="heading-1" className="text-center m-10">{ character.name }</Typography>
         <div className="flex items-center justify-center">
-            <div className="grid grid-cols-1 md:grid-cols sm:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2">
                 <Card character={ character }  key={ character.id } />
             </div>
         </div>
