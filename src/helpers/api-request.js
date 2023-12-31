@@ -8,17 +8,50 @@ const ApiInstance = axios.create({
 });
 
 export const getData = async(instance = '', page = 1) => {
+    try{
+        let endpoint = endpoints[0];
+        
+        if(instance){
+            const isEndpoint = endpoints.includes(instance);
+            (isEndpoint)? endpoint = instance : null;
+        }
+        if( !isNaN(page) && page > 1){
+            endpoint = `${endpoint}?page=${page}`;
+        }
+        
+        const { data } = await ApiInstance.get(`/${endpoint}`);
+        return data;
+    }catch(e){
+        console.log('Server Error; ', e);
+        throw new Error('Server Error');
+    }
+}
 
-    let endpoint = endpoints[0];
+export const getOneData = async(instance = '', id = null) => {
 
-    if(instance){
+    try{
+        if(instance == '' || !id) return;
+        
+        let endpoint;
+        
         const isEndpoint = endpoints.includes(instance);
-        (isEndpoint)? endpoint = instance : null;
+        
+        if (isEndpoint) {
+            endpoint = instance;
+        }else{
+            return;
+        }
+        
+        if( !isNaN(id) && id >= 1){
+            endpoint = `${endpoint}/${id}`;
+        }else{
+            return;
+        }
+        
+        const { data } = await ApiInstance.get(`/${endpoint}`);
+        return data;
+    }catch(e){
+        console.log('Server Error:', e);
+        throw new Error('Server Error');
     }
-    if( !isNaN(page) && page > 1){
-        endpoint = `${endpoint}?page=${page}`;
-    }
-
-    const { data } = await ApiInstance.get(`/${endpoint}`);
-    return data;
 }

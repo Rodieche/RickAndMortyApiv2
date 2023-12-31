@@ -16,7 +16,7 @@ export const Card = ({ character }) => {
           <br />
           <b>Status: </b>{ character.status }
           <br />
-          <b>Origin: </b>{ character.origin.name }
+          <b>Origin: </b>{ character.origin?.name }
         </p>
         <div className="link">
           <a href="#">Details</a>
