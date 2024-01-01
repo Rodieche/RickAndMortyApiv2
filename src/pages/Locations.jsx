@@ -24,7 +24,6 @@ export const Locations = () => {
                 setLocations(results);
                 setNext(info.next);
                 setPrev(info.prev);
-                console.log(results, info);
                 closeLoading();
             } catch (error) {
                 console.error("Error fetching data:", error);

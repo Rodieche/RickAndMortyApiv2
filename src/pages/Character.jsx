@@ -90,7 +90,7 @@ export const Character = () => {
                             <Timeline.Body>
                                 { e.name }
                             </Timeline.Body>
-                            <Link to={`/location`}>
+                            <Link to={`/episodes/${e.id}`}>
                                 <Button type="primary" size="sm">
                                     Details
                                     <ArrowRight className="ml-2 h-3 w-3" />

@@ -1,29 +1,21 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { Characters, Locations, Episodes, Character, Location } from '../pages';
+import { Character, Location, Episode, Home } from '../pages';
 
 export const router = createBrowserRouter([
     {
         path:'/',
-        element: <Characters />
-    },
-    {
-        path: '/characters',
-        element: <Characters />,
+        element: <Home />
     },
     {
         path: 'characters/:character_id',
         element: <Character />
     },
     {
-        path: '/locations',
-        element: <Locations />
-    },
-    {
         path: 'locations/:location_id',
         element: <Location />
     },
     {
-        path: '/episodes',
-        element: <Episodes />
+        path: '/episodes/:episode_id',
+        element: <Episode />
     }
 ])
