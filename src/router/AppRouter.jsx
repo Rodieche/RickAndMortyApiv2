@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
         element: <Locations />
     },
     {
-        path: 'location/location_id',
+        path: 'locations/:location_id',
         element: <Location />
     },
     {

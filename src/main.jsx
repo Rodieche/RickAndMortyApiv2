@@ -11,11 +11,7 @@ import { Header } from './components/Header';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Header />
-    <div className='topAdjust'>
-      <RouterProvider router={router} />
-    </div>
-    <div className="topAdjust">
-      <Footer />
-    </div>
+    <RouterProvider router={router} />
+    <Footer />
   </React.StrictMode>,
 )

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { getData } from "../helpers/api-request";
 import { Card } from "../components/Card";
 import { Typography, Pagination } from "keep-react";
-import Swal from 'sweetalert2';
 import { getQuery } from "../helpers/getQuery";
+import { closeLoading, loading } from "../helpers/Loading";
 
 export const Characters = () => {
 
@@ -14,17 +14,8 @@ export const Characters = () => {
     useEffect(() => {
         async function fetchData(){
             try{
-                Swal.fire({
-                    title: 'Loading',
-                    text: 'Loading characters, please wait...',
-                    icon: 'info',
-                    allowOutsideClick: false,
-                    allowEnterKey: false,
-                    allowEscapeKey: false
-                });
-                Swal.showLoading();
+                loading('characters');
                 const { info, results } = await getData('character', curr);
-                console.log(info)
                 setTotalPages(info.pages);
                 if(info.prev){
                     setCurr(getQuery(info.prev) + 1)
@@ -32,7 +23,7 @@ export const Characters = () => {
                     setCurr(getQuery(info.next) - 1)
                 }
                 setCharacters(results);
-                Swal.close();
+                closeLoading();
             }catch(error){
                 console.log('Error fetching data:', error);
             }

@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import { getOneData } from "../helpers/api-request";
 
-import Swal from 'sweetalert2';
-
 import { Typography, TextInput, Timeline, Label, Button } from "keep-react";
-import { ArrowRight } from "phosphor-react";
+import { ArrowRight, ArrowLeft } from "phosphor-react";
 
 import { Card } from "../components/Card";
+import { closeLoading, loading } from "../helpers/Loading";
 
 export const Character = () => {
 
     const { character_id } = useParams();
+    const navegate = useNavigate()
 
     const [ character, setCharacter ] = useState([]);
     const [ episodes, setEpisodes ] = useState([]);
@@ -21,15 +21,7 @@ export const Character = () => {
     useEffect(() => {
         async function fetchData(){
             try{
-                Swal.fire({
-                    title: 'Loading',
-                    text: 'Loading character, please wait...',
-                    icon: 'info',
-                    allowOutsideClick: false,
-                    allowEnterKey: false,
-                    allowEscapeKey: false
-                });
-                Swal.showLoading();
+                loading('character');
                 const result = await getOneData('character', character_id);
                 setCharacter(result);
                 const updatedEpisodes = await Promise.all(
@@ -41,7 +33,7 @@ export const Character = () => {
                     })
                 );
                 setEpisodes(updatedEpisodes);
-                Swal.close();
+                closeLoading();
             }catch(error){
                 console.log('Error fetching data:', error);
             }
@@ -52,6 +44,12 @@ export const Character = () => {
   return (
     <>
         <Typography variant="heading-1" className="text-center m-10 rubik">{ character.name }</Typography>
+        <div className="text-center flex items-center justify-center">
+            <Button onClick={ () => navegate(-1) } type="primary" size="sm">
+                Go back
+                <ArrowLeft className="ml-2 h-3 w-3" />
+            </Button>
+        </div>
         <div className="flex items-center justify-center">
             <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3">
                 <Card character={ character } onlyCard={true} key={ character.id } />

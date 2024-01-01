@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import { getOneData } from "../helpers/api-request";
 
-import Swal from 'sweetalert2';
+import { ArrowLeft } from "phosphor-react";
+
+import { closeLoading, loading } from "../helpers/Loading";
+
+import { Avatar, Button, Typography } from "keep-react";
 
 export const Location = () => {
 
@@ -12,21 +16,27 @@ export const Location = () => {
 
     const [ location, setLocation ] = useState([]);
 
+    const [ characters, setCharacters ] = useState([]);
+
+    const navegate = useNavigate();
+
     useEffect(() => {
         async function fetchData(){
             try{
-                Swal.fire({
-                    title: 'Loading',
-                    text: 'Loading location, please wait...',
-                    icon: 'info',
-                    allowOutsideClick: false,
-                    allowEnterKey: false,
-                    allowEscapeKey: false
-                });
-                Swal.showLoading();
+                loading('location')
                 const result = await getOneData('location', location_id);
                 setLocation(result);
-                Swal.close();
+                console.log(result);
+                const updatedCharacters = await Promise.all(
+                    result.residents.map(async (res) => {
+                        const epi = res.split('/');
+                        const index = parseInt(epi[epi.length - 1]);
+                        const episode = await getOneData('character', index);
+                        return episode;
+                    })
+                );
+                setCharacters(updatedCharacters);
+                closeLoading();
             }catch(error){
                 console.log('Error fetching data:', error);
             }
@@ -36,13 +46,32 @@ export const Location = () => {
 
   return (
     <>
-        {/* <Typography variant="heading-1" className="text-center m-10">{ character.name }</Typography>
-        <div className="flex items-center justify-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2">
-                <Card character={ character } onlyCard={true} key={ character.id } />
-            </div>
-        </div> */}
-        <pre>{ JSON.stringify( location ) }</pre>
+        <Typography variant="heading-1" className="text-center m-10 rubik">{ location.name } (<span>Dimension: { location.dimension }</span>)</Typography>
+        <Typography variant="heading-3" className="text-center rubik">{ location.type }</Typography>
+        <div className="text-center flex items-center justify-center mt-5">
+            <Button onClick={ () => navegate(-1) } type="primary" size="sm">
+                Go back
+                <ArrowLeft className="ml-2 h-3 w-3" />
+            </Button>
+        </div>
+        <div className="text-center flex items-center justify-center mt-5">
+            <Avatar.Group>
+                {
+                    characters.map(character => {
+                        return(
+                            <Link to={`/characters/${ character.id }`}  key={character.id}>
+                                <Avatar
+                                    shape="circle"
+                                    size="md"
+                                    stacked={true}
+                                    img={ character.image }
+                                />
+                            </Link>
+                        )
+                    })
+                }
+            </Avatar.Group>
+        </div>
     </>
   )
 }
