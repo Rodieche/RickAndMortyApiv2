@@ -1,5 +1,5 @@
-import { createBrowserRouter } from 'react-router-dom';
-import { Character, Location, Episode, Home } from '../pages';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { Character, Location, Episode, Home, NotFound, } from '../pages';
 
 export const router = createBrowserRouter([
     {
@@ -17,5 +17,13 @@ export const router = createBrowserRouter([
     {
         path: '/episodes/:episode_id',
         element: <Episode />
+    },
+    {
+        path: 'notfound',
+        element: <NotFound />
+    },
+    {
+        path: '*',
+        element: <Navigate to='/notfound' replace={ true } />
     }
 ])

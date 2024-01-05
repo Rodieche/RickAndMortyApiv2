@@ -25,8 +25,11 @@ export const Location = () => {
             try{
                 loading('location')
                 const result = await getOneData('location', location_id);
+                if(!result){
+                    closeLoading();
+                    return navegate(`/notfound`);
+                }
                 setLocation(result);
-                console.log(result);
                 const updatedCharacters = await Promise.all(
                     result.residents.map(async (res) => {
                         const epi = res.split('/');

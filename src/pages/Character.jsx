@@ -23,6 +23,10 @@ export const Character = () => {
             try{
                 loading('character');
                 const result = await getOneData('character', character_id);
+                if(!result){
+                    closeLoading();
+                    return navegate(`/notfound`);
+                }
                 setCharacter(result);
                 const updatedEpisodes = await Promise.all(
                     result.episode.map(async (ep) => {
